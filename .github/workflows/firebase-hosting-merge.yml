@@ -11,15 +11,6 @@ jobs:
     runs-on: costa-runners
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # or whichever version you require
-
-      - run: npm install
-
-      - run: npm run build
-      - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

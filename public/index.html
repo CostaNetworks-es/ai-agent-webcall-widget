@@ -1,89 +1,199 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Webcall Widget - Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/12.5.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/12.5.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/12.5.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .feature-list li {
+      padding: 12px 0;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+
+    .code-block code {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .note {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .note p {
+      color: #92400e;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px;
       }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 AI Agent Webcall Widget</h1>
+    <p>
+      Welcome to the AI Agent Webcall Widget demonstration page. This widget allows you to easily integrate
+      AI-powered webcall functionality into any website with just a few lines of code.
+    </p>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Features</h2>
+    <ul class="feature-list">
+      <li>Easy integration with a single script tag</li>
+      <li>Customizable appearance and positioning</li>
+      <li>Responsive design that works on all devices</li>
+      <li>Clean and modern UI</li>
+      <li>Callback support for custom logic</li>
+      <li>WebRTC ready for real-time video calls</li>
+    </ul>
+
+    <div class="note">
+      <p>
+        👋 <strong>Try it out!</strong> Click the floating button in the bottom-right corner to see the widget in action.
+      </p>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Quick Start</h2>
+    <p>Add the following code to your HTML page:</p>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+    <div class="code-block">
+      <code>&lt;!-- Include the widget CSS and JS --&gt;<br>
+&lt;link rel="stylesheet" href="widget.css"&gt;<br>
+&lt;script src="widget.js"&gt;&lt;/script&gt;<br>
+<br>
+&lt;!-- Initialize the widget --&gt;<br>
+&lt;script&gt;<br>
+&nbsp;&nbsp;new AIWebcallWidget({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position: 'bottom-right',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;primaryColor: '#007bff',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;agentName: 'AI Assistant',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;greeting: 'Hello! How can I help you today?'<br>
+&nbsp;&nbsp;});<br>
+&lt;/script&gt;</code>
+    </div>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Configuration Options</h2>
+    <p>Customize the widget to match your brand and requirements:</p>
+    
+    <div class="code-block">
+      <code>{<br>
+&nbsp;&nbsp;position: 'bottom-right',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Widget position<br>
+&nbsp;&nbsp;primaryColor: '#007bff',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Brand color<br>
+&nbsp;&nbsp;buttonText: 'Talk to AI Agent',&nbsp;&nbsp;&nbsp;// Button text<br>
+&nbsp;&nbsp;agentName: 'AI Assistant',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent display name<br>
+&nbsp;&nbsp;agentAvatar: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent avatar URL<br>
+&nbsp;&nbsp;greeting: 'Hello!',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Welcome message<br>
+&nbsp;&nbsp;callEndpoint: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// API endpoint<br>
+&nbsp;&nbsp;onCallStart: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
+&nbsp;&nbsp;onCallEnd: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
+&nbsp;&nbsp;onError: function(err) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Error handler<br>
+}</code>
+    </div>
+  </div>
+
+  <!-- Include the widget -->
+  <link rel="stylesheet" href="widget.css">
+  <script src="widget.js"></script>
+
+  <!-- Initialize the widget -->
+  <script>
+    new AIWebcallWidget({
+      position: 'bottom-right',
+      primaryColor: '#667eea',
+      agentName: 'AI Assistant',
+      greeting: 'Hello! I\'m here to help. Click the button below to start a video call with me.',
+      buttonText: 'Start Video Call',
+      onCallStart: function() {
+        console.log('Call started!');
+      },
+      onCallEnd: function() {
+        console.log('Call ended!');
+      },
+      onError: function(error) {
+        console.error('Widget error:', error);
+      }
+    });
+  </script>
+</body>
 </html>
