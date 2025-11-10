@@ -1,0 +1,16 @@
+// Configuration file for AI Webcall Widget
+// Copy this file to config.js and update with your values
+// Add config.js to .gitignore to keep your API key secure
+
+window.AI_WIDGET_CONFIG = {
+  // Your API endpoint for initiating calls
+  callEndpoint: 'https://your-api.example.com/initiate-call',
+  
+  // Your API key for authentication
+  apiKey: 'your-api-key-here',
+  
+  // Optional: Customize widget appearance
+  agentName: 'AI Assistant',
+  primaryColor: '#007bff',
+  position: 'bottom-right'
+};

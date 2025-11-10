@@ -1,0 +1,24 @@
+{
+  "name": "ai-agent-webcall-widget",
+  "version": "1.0.0",
+  "description": "A customizable widget for initiating webcalls with AI agents",
+  "main": "widget.js",
+  "scripts": {
+    "serve": "python3 -m http.server 8000",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "widget",
+    "webcall",
+    "ai",
+    "agent",
+    "video-call",
+    "webrtc"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CostaNetworks-es/ai-agent-webcall-widget.git"
+  }
+}

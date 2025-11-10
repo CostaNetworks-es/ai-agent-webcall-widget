@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Webcall Widget - Example</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .feature-list li {
+      padding: 12px 0;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+
+    .code-block code {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .note {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .note p {
+      color: #92400e;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 AI Agent Webcall Widget</h1>
+    <p>
+      Welcome to the AI Agent Webcall Widget demonstration page. This widget allows you to easily integrate
+      AI-powered webcall functionality into any website with just a few lines of code.
+    </p>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Features</h2>
+    <ul class="feature-list">
+      <li>Easy integration with a single script tag</li>
+      <li>Customizable appearance and positioning</li>
+      <li>Responsive design that works on all devices</li>
+      <li>Clean and modern UI</li>
+      <li>Callback support for custom logic</li>
+      <li>WebRTC ready for real-time video calls</li>
+    </ul>
+
+    <div class="note">
+      <p>
+        👋 <strong>Try it out!</strong> Click the floating button in the bottom-right corner to see the widget in action.
+      </p>
+    </div>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Quick Start</h2>
+    <p>Add the following code to your HTML page:</p>
+
+    <div class="code-block">
+      <code>&lt;!-- Include the widget CSS and JS --&gt;<br>
+&lt;link rel="stylesheet" href="widget.css"&gt;<br>
+&lt;script src="widget.js"&gt;&lt;/script&gt;<br>
+<br>
+&lt;!-- Initialize the widget --&gt;<br>
+&lt;script&gt;<br>
+&nbsp;&nbsp;new AIWebcallWidget({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position: 'bottom-right',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;primaryColor: '#007bff',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;agentName: 'AI Assistant',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;greeting: 'Hello! How can I help you today?'<br>
+&nbsp;&nbsp;});<br>
+&lt;/script&gt;</code>
+    </div>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Configuration Options</h2>
+    <p>Customize the widget to match your brand and requirements:</p>
+    
+    <div class="code-block">
+      <code>{<br>
+&nbsp;&nbsp;position: 'bottom-right',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Widget position<br>
+&nbsp;&nbsp;primaryColor: '#007bff',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Brand color<br>
+&nbsp;&nbsp;buttonText: 'Talk to AI Agent',&nbsp;&nbsp;&nbsp;// Button text<br>
+&nbsp;&nbsp;agentName: 'AI Assistant',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent display name<br>
+&nbsp;&nbsp;agentAvatar: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent avatar URL<br>
+&nbsp;&nbsp;greeting: 'Hello!',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Welcome message<br>
+&nbsp;&nbsp;callEndpoint: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// API endpoint<br>
+&nbsp;&nbsp;onCallStart: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
+&nbsp;&nbsp;onCallEnd: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
+&nbsp;&nbsp;onError: function(err) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Error handler<br>
+}</code>
+    </div>
+  </div>
+
+  <!-- Include the widget -->
+  <link rel="stylesheet" href="widget.css">
+  <script src="widget.js"></script>
+
+  <!-- Initialize the widget -->
+  <script>
+    new AIWebcallWidget({
+      position: 'bottom-right',
+      primaryColor: '#667eea',
+      agentName: 'AI Assistant',
+      greeting: 'Hello! I\'m here to help. Click the button below to start a video call with me.',
+      buttonText: 'Start Video Call',
+      onCallStart: function() {
+        console.log('Call started!');
+      },
+      onCallEnd: function() {
+        console.log('Call ended!');
+      },
+      onError: function(error) {
+        console.error('Widget error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
