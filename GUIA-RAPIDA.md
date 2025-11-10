@@ -61,11 +61,44 @@ El repositorio ya incluye un workflow de GitHub Actions que:
 - **GitHub Pro/Team/Enterprise**: Puedes usar GitHub Pages con repositorios **privados**
 
 **Alternativas para repos privados (cuenta gratuita):**
-- Despliega a Netlify, Vercel o Cloudflare Pages (soportan repos privados)
+- Despliega a Firebase, Netlify, Vercel o Cloudflare Pages (soportan repos privados)
 - Crea un repo público separado solo para distribución
 - Hostea en tu propio servidor
 
-### Opción 2: Hosting Estático Simple
+### Opción 2: Firebase Hosting (Recomendado para Repos Privados)
+
+Firebase Hosting es una excelente alternativa que funciona con repositorios privados:
+
+1. **Instala Firebase CLI:**
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. **Inicia sesión e inicializa:**
+   ```bash
+   firebase login
+   firebase init hosting
+   ```
+   - Selecciona tu proyecto de Firebase (o crea uno nuevo)
+   - Establece el directorio público como `.` (directorio actual)
+   - Configurar como single-page app: No
+   - No sobrescribir archivos existentes
+
+3. **Despliega:**
+   ```bash
+   firebase deploy --only hosting
+   ```
+
+4. **Accede a tu widget en:** `https://tu-proyecto.web.app`
+
+**Ventajas:**
+- Funciona con repositorios privados
+- Certificados SSL gratuitos
+- Distribución CDN global
+- Soporte para dominio personalizado
+- Despliegue simple por CLI
+
+### Opción 3: Hosting Estático Simple
 
 Solo necesitas subir estos 3 archivos a cualquier servidor web:
 - `widget.js`
@@ -73,12 +106,13 @@ Solo necesitas subir estos 3 archivos a cualquier servidor web:
 - `index.html` (o `example.html`)
 
 **Servicios donde puedes hostear gratis:**
+- Firebase Hosting
 - Netlify (arrastra y suelta)
 - Vercel
 - Cloudflare Pages
 - Cualquier servidor web tradicional
 
-### Opción 3: Servidor Local (para pruebas)
+### Opción 4: Servidor Local (para pruebas)
 
 ```bash
 # Con Python

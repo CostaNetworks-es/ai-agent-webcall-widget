@@ -80,11 +80,44 @@ This repository is configured with GitHub Actions to automatically deploy to Git
 - **GitHub Pro/Team/Enterprise**: Can use GitHub Pages with **private** repositories
 
 **Alternative for private repos (free account):**
-- Deploy to Netlify, Vercel, or Cloudflare Pages (supports private repos)
+- Deploy to Netlify, Vercel, Cloudflare Pages, or Firebase (supports private repos)
 - Create a separate public repo for distribution only
 - Self-host on your own server
 
-### Option 2: Static File Hosting
+### Option 2: Firebase Hosting (Recommended for Private Repos)
+
+Firebase Hosting is an excellent alternative that works with private repositories:
+
+1. **Install Firebase CLI:**
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. **Login and initialize:**
+   ```bash
+   firebase login
+   firebase init hosting
+   ```
+   - Select your Firebase project (or create a new one)
+   - Set public directory to `.` (current directory)
+   - Configure as single-page app: No
+   - Don't overwrite existing files
+
+3. **Deploy:**
+   ```bash
+   firebase deploy --only hosting
+   ```
+
+4. **Access your widget at:** `https://your-project.web.app`
+
+**Benefits:**
+- Works with private repositories
+- Free SSL certificates
+- Global CDN distribution
+- Custom domain support
+- Simple CLI deployment
+
+### Option 3: Static File Hosting
 
 Simply upload the following files to any web server or CDN:
 - `widget.js`
@@ -98,7 +131,7 @@ Services you can use:
 - Cloudflare Pages
 - Any web hosting service
 
-### Option 3: NPM/CDN
+### Option 4: NPM/CDN
 
 You can also serve the widget files via a CDN:
 

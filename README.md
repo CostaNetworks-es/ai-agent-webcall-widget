@@ -98,7 +98,7 @@ See `config.js.example` for a template.
 
 ## 🌐 Hosting Options
 
-### GitHub Pages (Recommended)
+### GitHub Pages (Recommended for Public Repos)
 
 This repository includes GitHub Actions workflow for automatic deployment:
 
@@ -113,13 +113,25 @@ The workflow uses your self-hosted runner (`costa-runner`) for deployment.
 - **Free GitHub account**: Repository must be **public** to use GitHub Pages
 - **GitHub Pro/Team/Enterprise**: Can use private repositories with GitHub Pages
 
-**Alternatives for private repos:**
-- Use Netlify, Vercel, or Cloudflare Pages (support private repositories)
-- Self-host on your own server
+### Firebase Hosting (Recommended for Private Repos)
+
+Perfect alternative for private repositories:
+
+```bash
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+firebase deploy --only hosting
+```
+
+Access at: `https://your-project.web.app`
+
+**Benefits:** Works with private repos, free SSL, global CDN, custom domains
 
 ### Other Hosting Options
 
 You can host the widget files on any static hosting service:
+- Firebase Hosting (supports private repos)
 - Netlify (drag & drop)
 - Vercel
 - AWS S3 + CloudFront
