@@ -56,6 +56,15 @@ El repositorio ya incluye un workflow de GitHub Actions que:
 3. Haz push a la rama `main`
 4. Tu widget estará disponible en: `https://tu-usuario.github.io/ai-agent-webcall-widget/`
 
+**⚠️ Requisitos de Visibilidad:**
+- **Cuenta GitHub gratuita**: El repositorio debe ser **público** para usar GitHub Pages
+- **GitHub Pro/Team/Enterprise**: Puedes usar GitHub Pages con repositorios **privados**
+
+**Alternativas para repos privados (cuenta gratuita):**
+- Despliega a Netlify, Vercel o Cloudflare Pages (soportan repos privados)
+- Crea un repo público separado solo para distribución
+- Hostea en tu propio servidor
+
 ### Opción 2: Hosting Estático Simple
 
 Solo necesitas subir estos 3 archivos a cualquier servidor web:

@@ -109,6 +109,14 @@ This repository includes GitHub Actions workflow for automatic deployment:
 
 The workflow uses your self-hosted runner (`costa-runner`) for deployment.
 
+**⚠️ Important:** 
+- **Free GitHub account**: Repository must be **public** to use GitHub Pages
+- **GitHub Pro/Team/Enterprise**: Can use private repositories with GitHub Pages
+
+**Alternatives for private repos:**
+- Use Netlify, Vercel, or Cloudflare Pages (support private repositories)
+- Self-host on your own server
+
 ### Other Hosting Options
 
 You can host the widget files on any static hosting service:

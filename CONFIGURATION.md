@@ -75,6 +75,15 @@ This repository is configured with GitHub Actions to automatically deploy to Git
 3. The widget will be available at: `https://your-username.github.io/ai-agent-webcall-widget/`
 4. Use the workflow file at `.github/workflows/deploy.yml` (configured to use your `costa-runner`)
 
+**⚠️ Repository Visibility Requirements:**
+- **Free GitHub account**: Repository must be **public** to use GitHub Pages
+- **GitHub Pro/Team/Enterprise**: Can use GitHub Pages with **private** repositories
+
+**Alternative for private repos (free account):**
+- Deploy to Netlify, Vercel, or Cloudflare Pages (supports private repos)
+- Create a separate public repo for distribution only
+- Self-host on your own server
+
 ### Option 2: Static File Hosting
 
 Simply upload the following files to any web server or CDN:
