@@ -1,0 +1,320 @@
+/**
+ * AI Agent Webcall Widget Styles
+ */
+
+.ai-webcall-widget {
+  position: fixed;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Position variants */
+.ai-webcall-widget[data-position="bottom-right"] {
+  bottom: 20px;
+  right: 20px;
+}
+
+.ai-webcall-widget[data-position="bottom-left"] {
+  bottom: 20px;
+  left: 20px;
+}
+
+.ai-webcall-widget[data-position="top-right"] {
+  top: 20px;
+  right: 20px;
+}
+
+.ai-webcall-widget[data-position="top-left"] {
+  top: 20px;
+  left: 20px;
+}
+
+/* Widget button */
+.ai-webcall-widget-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  z-index: 10000;
+}
+
+.ai-webcall-widget-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ai-webcall-widget-button:active {
+  transform: scale(0.95);
+}
+
+.ai-webcall-widget-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Widget panel */
+.ai-webcall-widget-panel {
+  position: absolute;
+  width: 360px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.ai-webcall-widget-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ai-webcall-widget[data-position="bottom-right"] .ai-webcall-widget-panel,
+.ai-webcall-widget[data-position="bottom-left"] .ai-webcall-widget-panel {
+  bottom: 80px;
+}
+
+.ai-webcall-widget[data-position="top-right"] .ai-webcall-widget-panel,
+.ai-webcall-widget[data-position="top-left"] .ai-webcall-widget-panel {
+  top: 80px;
+}
+
+.ai-webcall-widget[data-position="bottom-right"] .ai-webcall-widget-panel,
+.ai-webcall-widget[data-position="top-right"] .ai-webcall-widget-panel {
+  right: 0;
+}
+
+.ai-webcall-widget[data-position="bottom-left"] .ai-webcall-widget-panel,
+.ai-webcall-widget[data-position="top-left"] .ai-webcall-widget-panel {
+  left: 0;
+}
+
+/* Panel header */
+.ai-webcall-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ai-webcall-widget-agent-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ai-webcall-widget-avatar,
+.ai-webcall-widget-avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ai-webcall-widget-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.ai-webcall-widget-agent-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-webcall-widget-agent-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #111827;
+}
+
+.ai-webcall-widget-agent-status {
+  font-size: 12px;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ai-webcall-widget-agent-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  display: inline-block;
+}
+
+.ai-webcall-widget-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.ai-webcall-widget-close:hover {
+  background-color: #f3f4f6;
+}
+
+/* Panel body */
+.ai-webcall-widget-body {
+  padding: 24px 16px;
+}
+
+.ai-webcall-widget-greeting {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.ai-webcall-widget-call-button {
+  width: 100%;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.ai-webcall-widget-call-button:hover {
+  background-color: #0056b3;
+}
+
+.ai-webcall-widget-call-button:active {
+  transform: scale(0.98);
+}
+
+/* Call status */
+.ai-webcall-widget-call-status {
+  text-align: center;
+}
+
+.ai-webcall-widget-call-animation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ai-webcall-widget-call-pulse {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #10b981;
+  animation: pulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+.ai-webcall-widget-call-pulse::before,
+.ai-webcall-widget-call-pulse::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #10b981;
+  opacity: 0;
+  top: 0;
+  left: 0;
+}
+
+.ai-webcall-widget-call-pulse::before {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.ai-webcall-widget-call-pulse::after {
+  animation: pulse-ring 2s 1s ease-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.ai-webcall-widget-call-text {
+  font-size: 15px;
+  color: #111827;
+  margin: 0 0 16px 0;
+  font-weight: 500;
+}
+
+.ai-webcall-widget-end-call-button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ai-webcall-widget-end-call-button:hover {
+  background-color: #c82333;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .ai-webcall-widget-panel {
+    width: calc(100vw - 40px);
+    max-width: 360px;
+  }
+  
+  .ai-webcall-widget[data-position="bottom-right"],
+  .ai-webcall-widget[data-position="bottom-left"],
+  .ai-webcall-widget[data-position="top-right"],
+  .ai-webcall-widget[data-position="top-left"] {
+    right: 20px;
+    left: auto;
+  }
+  
+  .ai-webcall-widget-panel {
+    right: 0 !important;
+    left: auto !important;
+  }
+}
