@@ -15,6 +15,7 @@
     agentAvatar: null,
     greeting: 'Hello! How can I help you today?',
     callEndpoint: null, // URL to initiate the call
+    apiKey: null, // API key for authentication
     onCallStart: null,
     onCallEnd: null,
     onError: null
@@ -174,11 +175,18 @@
 
         // If callEndpoint is provided, make an API call
         if (this.config.callEndpoint) {
+          const headers = {
+            'Content-Type': 'application/json'
+          };
+          
+          // Add API key to headers if provided
+          if (this.config.apiKey) {
+            headers['Authorization'] = `Bearer ${this.config.apiKey}`;
+          }
+          
           const response = await fetch(this.config.callEndpoint, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            headers: headers,
             body: JSON.stringify({
               timestamp: new Date().toISOString()
             })
@@ -266,7 +274,8 @@
         agentName: autoInitElement.dataset.agentName,
         agentAvatar: autoInitElement.dataset.agentAvatar,
         greeting: autoInitElement.dataset.greeting,
-        callEndpoint: autoInitElement.dataset.callEndpoint
+        callEndpoint: autoInitElement.dataset.callEndpoint,
+        apiKey: autoInitElement.dataset.apiKey
       };
       
       // Remove undefined values

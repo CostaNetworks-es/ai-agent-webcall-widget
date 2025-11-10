@@ -62,9 +62,65 @@ Alternatively, you can use data attributes for simpler initialization:
 | `agentAvatar` | string | `null` | URL to agent's avatar image |
 | `greeting` | string | `'Hello! How can I help you today?'` | Welcome message shown in the widget |
 | `callEndpoint` | string | `null` | API endpoint to call when initiating a call |
+| `apiKey` | string | `null` | API key for authentication (sent in Authorization header) |
 | `onCallStart` | function | `null` | Callback fired when a call starts |
 | `onCallEnd` | function | `null` | Callback fired when a call ends |
 | `onError` | function | `null` | Error handler callback |
+
+## 🔑 API Key Configuration
+
+For secure API integration, see [CONFIGURATION.md](CONFIGURATION.md) for detailed setup instructions.
+
+**Quick example with API key:**
+
+```javascript
+new AIWebcallWidget({
+  callEndpoint: 'https://api.example.com/initiate-call',
+  apiKey: 'your-api-key-here',
+  agentName: 'Support Agent'
+});
+```
+
+**Recommended: Use a separate config file (not committed to git):**
+
+```html
+<script src="config.js"></script>
+<script src="widget.js"></script>
+<script>
+  new AIWebcallWidget({
+    apiKey: window.AI_WIDGET_CONFIG.apiKey,
+    callEndpoint: window.AI_WIDGET_CONFIG.callEndpoint
+  });
+</script>
+```
+
+See `config.js.example` for a template.
+
+## 🌐 Hosting Options
+
+### GitHub Pages (Recommended)
+
+This repository includes GitHub Actions workflow for automatic deployment:
+
+1. Enable GitHub Pages in your repository settings
+2. Select "GitHub Actions" as the deployment source
+3. Push to `main` branch - the widget will be automatically deployed
+4. Access at: `https://your-username.github.io/ai-agent-webcall-widget/`
+
+The workflow uses your self-hosted runner (`costa-runner`) for deployment.
+
+### Other Hosting Options
+
+You can host the widget files on any static hosting service:
+- Netlify (drag & drop)
+- Vercel
+- AWS S3 + CloudFront
+- Cloudflare Pages
+- Any web hosting service
+
+Simply upload `widget.js`, `widget.css`, and optionally `example.html`.
+
+For detailed hosting instructions, see [CONFIGURATION.md](CONFIGURATION.md).
 
 ## 📖 Examples
 
