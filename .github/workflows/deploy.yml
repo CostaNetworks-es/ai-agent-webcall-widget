@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: costa-runner
+    runs-on: costa-runners
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
