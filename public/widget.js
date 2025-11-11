@@ -10,10 +10,10 @@
   const defaultConfig = {
     position: 'bottom-right', // bottom-right, bottom-left, top-right, top-left
     primaryColor: '#007bff',
-    buttonText: 'Talk to AI Agent',
-    agentName: 'AI Assistant',
+    buttonText: 'Hablar con Agente IA',
+    agentName: 'Asistente IA',
     agentAvatar: null,
-    greeting: 'Hello! How can I help you today?',
+    greeting: '¡Hola! ¿En qué puedo ayudarte hoy?',
     callEndpoint: null, // URL to initiate the call
     apiKey: null, // API key for authentication
     onCallStart: null,
@@ -87,7 +87,7 @@
             }
             <div class="ai-webcall-widget-agent-details">
               <span class="ai-webcall-widget-agent-name">${this.config.agentName}</span>
-              <span class="ai-webcall-widget-agent-status">Available</span>
+              <span class="ai-webcall-widget-agent-status">Disponible</span>
             </div>
           </div>
           <button class="ai-webcall-widget-close">
@@ -101,8 +101,7 @@
           <div class="ai-webcall-widget-greeting">${this.config.greeting}</div>
           <button class="ai-webcall-widget-call-button" style="background-color: ${this.config.primaryColor}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="23 7 16 12 23 17 23 7"></polygon>
-              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+              <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
             ${this.config.buttonText}
           </button>
@@ -110,9 +109,9 @@
             <div class="ai-webcall-widget-call-animation">
               <div class="ai-webcall-widget-call-pulse"></div>
             </div>
-            <p class="ai-webcall-widget-call-text">Connecting...</p>
+            <p class="ai-webcall-widget-call-text">Conectando...</p>
             <button class="ai-webcall-widget-end-call-button" style="background-color: #dc3545;">
-              End Call
+              Finalizar Llamada
             </button>
           </div>
         </div>
@@ -197,14 +196,14 @@
           }
 
           const data = await response.json();
-          this.showCallStatus('Connected');
+          this.showCallStatus('Conectado');
           
           // Handle the call connection (this would integrate with WebRTC or similar)
           console.log('Call initiated:', data);
         } else {
           // Simulate call connection for demo purposes
           setTimeout(() => {
-            this.showCallStatus('Connected');
+            this.showCallStatus('Conectado');
           }, 1500);
         }
       } catch (error) {
@@ -246,7 +245,7 @@
     }
 
     handleError(error) {
-      alert('Failed to start call. Please try again.');
+      alert('Error al iniciar la llamada. Por favor, inténtalo de nuevo.');
       
       if (typeof this.config.onError === 'function') {
         this.config.onError(error);

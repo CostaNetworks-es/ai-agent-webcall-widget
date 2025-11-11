@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Agent Webcall Widget - Example</title>
+  <title>Widget de Llamada IA - Ejemplo</title>
   <style>
     * {
       margin: 0;
@@ -112,62 +112,63 @@
 </head>
 <body>
   <div class="container">
-    <h1>🎯 AI Agent Webcall Widget</h1>
+    <h1>🎯 Widget de Llamada con Agente IA</h1>
     <p>
-      Welcome to the AI Agent Webcall Widget demonstration page. This widget allows you to easily integrate
-      AI-powered webcall functionality into any website with just a few lines of code.
+      Bienvenido a la página de demostración del Widget de Llamada con Agente IA. Este widget te permite 
+      integrar fácilmente funcionalidad de llamadas de audio con IA en cualquier sitio web con solo unas 
+      pocas líneas de código.
     </p>
 
-    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Features</h2>
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Características</h2>
     <ul class="feature-list">
-      <li>Easy integration with a single script tag</li>
-      <li>Customizable appearance and positioning</li>
-      <li>Responsive design that works on all devices</li>
-      <li>Clean and modern UI</li>
-      <li>Callback support for custom logic</li>
-      <li>WebRTC ready for real-time video calls</li>
+      <li>Integración fácil con una sola etiqueta de script</li>
+      <li>Apariencia y posicionamiento personalizables</li>
+      <li>Diseño responsive que funciona en todos los dispositivos</li>
+      <li>Interfaz limpia y moderna</li>
+      <li>Soporte de callbacks para lógica personalizada</li>
+      <li>Listo para WebRTC para llamadas de audio en tiempo real</li>
     </ul>
 
     <div class="note">
       <p>
-        👋 <strong>Try it out!</strong> Click the floating button in the bottom-right corner to see the widget in action.
+        👋 <strong>¡Pruébalo!</strong> Haz clic en el botón flotante en la esquina inferior derecha para ver el widget en acción.
       </p>
     </div>
 
-    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Quick Start</h2>
-    <p>Add the following code to your HTML page:</p>
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Inicio Rápido</h2>
+    <p>Agrega el siguiente código a tu página HTML:</p>
 
     <div class="code-block">
-      <code>&lt;!-- Include the widget CSS and JS --&gt;<br>
+      <code>&lt;!-- Incluye el CSS y JS del widget --&gt;<br>
 &lt;link rel="stylesheet" href="widget.css"&gt;<br>
 &lt;script src="widget.js"&gt;&lt;/script&gt;<br>
 <br>
-&lt;!-- Initialize the widget --&gt;<br>
+&lt;!-- Inicializa el widget --&gt;<br>
 &lt;script&gt;<br>
 &nbsp;&nbsp;new AIWebcallWidget({<br>
 &nbsp;&nbsp;&nbsp;&nbsp;position: 'bottom-right',<br>
 &nbsp;&nbsp;&nbsp;&nbsp;primaryColor: '#007bff',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;agentName: 'AI Assistant',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;greeting: 'Hello! How can I help you today?'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;agentName: 'Asistente IA',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;greeting: '¡Hola! ¿En qué puedo ayudarte hoy?'<br>
 &nbsp;&nbsp;});<br>
 &lt;/script&gt;</code>
     </div>
 
-    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Configuration Options</h2>
-    <p>Customize the widget to match your brand and requirements:</p>
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Opciones de Configuración</h2>
+    <p>Personaliza el widget para que coincida con tu marca y requisitos:</p>
     
     <div class="code-block">
       <code>{<br>
-&nbsp;&nbsp;position: 'bottom-right',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Widget position<br>
-&nbsp;&nbsp;primaryColor: '#007bff',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Brand color<br>
-&nbsp;&nbsp;buttonText: 'Talk to AI Agent',&nbsp;&nbsp;&nbsp;// Button text<br>
-&nbsp;&nbsp;agentName: 'AI Assistant',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent display name<br>
-&nbsp;&nbsp;agentAvatar: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent avatar URL<br>
-&nbsp;&nbsp;greeting: 'Hello!',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Welcome message<br>
+&nbsp;&nbsp;position: 'bottom-right',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Posición del widget<br>
+&nbsp;&nbsp;primaryColor: '#007bff',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Color de marca<br>
+&nbsp;&nbsp;buttonText: 'Hablar con Agente IA',&nbsp;&nbsp;// Texto del botón<br>
+&nbsp;&nbsp;agentName: 'Asistente IA',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Nombre del agente<br>
+&nbsp;&nbsp;agentAvatar: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// URL del avatar<br>
+&nbsp;&nbsp;greeting: '¡Hola!',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Mensaje de bienvenida<br>
 &nbsp;&nbsp;callEndpoint: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// API endpoint<br>
 &nbsp;&nbsp;onCallStart: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
 &nbsp;&nbsp;onCallEnd: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
-&nbsp;&nbsp;onError: function(err) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Error handler<br>
+&nbsp;&nbsp;onError: function(err) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Manejador de errores<br>
 }</code>
     </div>
   </div>
@@ -181,17 +182,17 @@
     new AIWebcallWidget({
       position: 'bottom-right',
       primaryColor: '#667eea',
-      agentName: 'AI Assistant',
-      greeting: 'Hello! I\'m here to help. Click the button below to start a video call with me.',
-      buttonText: 'Start Video Call',
+      agentName: 'Asistente IA',
+      greeting: '¡Hola! Estoy aquí para ayudarte. Haz clic en el botón de abajo para iniciar una llamada de audio conmigo.',
+      buttonText: 'Iniciar Llamada de Audio',
       onCallStart: function() {
-        console.log('Call started!');
+        console.log('¡Llamada iniciada!');
       },
       onCallEnd: function() {
-        console.log('Call ended!');
+        console.log('Llamada finalizada');
       },
       onError: function(error) {
-        console.error('Widget error:', error);
+        console.error('Error del widget:', error);
       }
     });
   </script>
