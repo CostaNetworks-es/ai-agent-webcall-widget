@@ -16,6 +16,10 @@
     greeting: '¡Hola! ¿En qué puedo ayudarte hoy?',
     callEndpoint: null, // URL to initiate the call
     apiKey: null, // API key for authentication
+    agentId: null, // Agent ID from Retell AI (required)
+    agentVersion: null, // Optional: Agent version to use
+    metadata: null, // Optional: Custom metadata object
+    retellLlmDynamicVariables: null, // Optional: Dynamic variables for LLM
     onCallStart: null,
     onCallEnd: null,
     onError: null
@@ -23,10 +27,14 @@
 
   class AIWebcallWidget {
     constructor(config = {}) {
-      this.config = { ...defaultConfig, ...config };
+      // Merge default config with global config and instance config
+      const globalConfig = window.AI_WIDGET_CONFIG || {};
+      this.config = { ...defaultConfig, ...globalConfig, ...config };
       this.isOpen = false;
       this.inCall = false;
       this.container = null;
+      this.callData = null;
+      this.retellWebClient = null;
       this.init();
     }
 
@@ -174,37 +182,63 @@
 
         // If callEndpoint is provided, make an API call
         if (this.config.callEndpoint) {
+          // Validate required parameters
+          if (!this.config.agentId) {
+            throw new Error('Agent ID is required to initiate call. Please check your configuration.');
+          }
+          
+          if (!this.config.apiKey) {
+            throw new Error('API Key is required to initiate call. Please check your configuration.');
+          }
+
           const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.config.apiKey}`
           };
           
-          // Add API key to headers if provided
-          if (this.config.apiKey) {
-            headers['Authorization'] = `Bearer ${this.config.apiKey}`;
+          const requestBody = {
+            agent_id: this.config.agentId
+          };
+
+          // Add optional parameters if provided
+          if (this.config.agentVersion) {
+            requestBody.agent_version = this.config.agentVersion;
           }
+          
+          if (this.config.metadata) {
+            requestBody.metadata = this.config.metadata;
+          }
+          
+          if (this.config.retellLlmDynamicVariables) {
+            requestBody.retell_llm_dynamic_variables = this.config.retellLlmDynamicVariables;
+          }
+          
+          console.log('Creating web call with:', requestBody);
           
           const response = await fetch(this.config.callEndpoint, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({
-              timestamp: new Date().toISOString()
-            })
+            body: JSON.stringify(requestBody)
           });
 
           if (!response.ok) {
-            throw new Error('Failed to initiate call');
+            const errorData = await response.json().catch(() => null);
+            const errorMessage = errorData?.message || `HTTP ${response.status}: ${response.statusText}`;
+            throw new Error(`Failed to initiate call: ${errorMessage}`);
           }
 
           const data = await response.json();
-          this.showCallStatus('Conectado');
+          console.log('Call created successfully:', data);
           
-          // Handle the call connection (this would integrate with WebRTC or similar)
-          console.log('Call initiated:', data);
+          // Store call data for potential use
+          this.callData = data;
+          this.showCallStatus('Conectando audio...');
+          
+          // Initialize Retell Web Client with the access token
+          await this.initializeWebRTC(data.access_token);
+          
         } else {
-          // Simulate call connection for demo purposes
-          setTimeout(() => {
-            this.showCallStatus('Conectado');
-          }, 1500);
+          throw new Error('Call endpoint is required for real calls. Please configure callEndpoint in your config.');
         }
       } catch (error) {
         console.error('Error starting call:', error);
@@ -214,10 +248,173 @@
       }
     }
 
+    async initializeWebRTC(accessToken) {
+      try {
+        // Wait for SDK to load
+        await this.waitForSDK();
+        
+        if (typeof RetellWebClient === 'undefined') {
+          throw new Error('RetellWebClient not available after loading');
+        }
+
+        this.showCallStatus('Solicitando permisos de micrófono...');
+
+        // Initialize the Retell Web Client
+        this.retellWebClient = new RetellWebClient();
+
+        // Set up event listeners
+        this.setupWebRTCEventListeners();
+
+        // Request microphone permission and start the call
+        await this.retellWebClient.startCall({
+          accessToken: accessToken,
+          sampleRate: 24000, // 24kHz sample rate
+          captureDeviceId: "default", // Use default microphone
+          playbackDeviceId: "default", // Use default speaker
+          emitRawAudioSamples: false // We don't need raw audio samples
+        });
+
+        console.log('WebRTC call started successfully');
+        this.showCallStatus('Conectado - Hablando...');
+
+      } catch (error) {
+        console.error('Error initializing WebRTC:', error);
+        
+        // Try fallback implementation as last resort
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isLocalhost && error.message.includes('Retell')) {
+          console.warn('Using fallback implementation for local development');
+          await this.initializeFallbackWebRTC(accessToken);
+        } else {
+          throw new Error(`Failed to initialize audio: ${error.message}`);
+        }
+      }
+    }
+
+    async waitForSDK(maxWait = 5000) {
+      return new Promise((resolve, reject) => {
+        // Check if SDK is already loaded
+        if (typeof RetellWebClient !== 'undefined') {
+          console.log('Retell SDK already available');
+          resolve();
+          return;
+        }
+
+        // Listen for SDK loaded event
+        const handleSDKLoaded = () => {
+          console.log('Retell SDK loaded via event');
+          clearTimeout(timeout);
+          resolve();
+        };
+
+        window.addEventListener('retellSDKLoaded', handleSDKLoaded, { once: true });
+
+        // Fallback timeout
+        const timeout = setTimeout(() => {
+          window.removeEventListener('retellSDKLoaded', handleSDKLoaded);
+          console.error('SDK loading timeout - SDK may not have loaded properly');
+          reject(new Error('Timeout waiting for Retell SDK to load'));
+        }, maxWait);
+      });
+    }
+
+
+
+    async initializeFallbackWebRTC(accessToken) {
+      console.log('Using fallback WebRTC implementation');
+      this.showCallStatus('Conectando (modo fallback)...');
+      
+      // Simulate call connection for demo purposes
+      setTimeout(() => {
+        this.showCallStatus('Conectado (simulado)');
+        console.log('Fallback call simulation started');
+        
+        // Simulate some events
+        setTimeout(() => {
+          this.showCallStatus('Agente hablando...');
+        }, 2000);
+        
+        setTimeout(() => {
+          this.showCallStatus('Tu turno - Habla ahora');
+        }, 5000);
+        
+      }, 1000);
+      
+      // Note: This is just a fallback simulation
+      // In production, you would implement actual WebRTC connection here
+      console.warn('This is a fallback simulation. Real WebRTC requires the Retell SDK.');
+    }
+
+    setupWebRTCEventListeners() {
+      if (!this.retellWebClient) return;
+
+      // Call started successfully
+      this.retellWebClient.on('call_started', () => {
+        console.log('Call started');
+        this.showCallStatus('Conectado - Hablando...');
+      });
+
+      // Call ended
+      this.retellWebClient.on('call_ended', () => {
+        console.log('Call ended');
+        this.inCall = false;
+        this.hideCallStatus();
+        if (typeof this.config.onCallEnd === 'function') {
+          this.config.onCallEnd();
+        }
+      });
+
+      // Error occurred
+      this.retellWebClient.on('error', (error) => {
+        console.error('WebRTC error:', error);
+        this.handleError(new Error(`Audio error: ${error.message || error}`));
+      });
+
+      // Agent started speaking
+      this.retellWebClient.on('agent_start_talking', () => {
+        console.log('Agent started talking');
+        this.showCallStatus('Agente hablando...');
+      });
+
+      // Agent stopped speaking
+      this.retellWebClient.on('agent_stop_talking', () => {
+        console.log('Agent stopped talking');
+        this.showCallStatus('Tu turno - Habla ahora');
+      });
+
+      // User started speaking
+      this.retellWebClient.on('user_start_talking', () => {
+        console.log('User started talking');
+        this.showCallStatus('Escuchando...');
+      });
+
+      // User stopped speaking
+      this.retellWebClient.on('user_stop_talking', () => {
+        console.log('User stopped talking');
+        this.showCallStatus('Procesando...');
+      });
+
+      // Update event with metadata
+      this.retellWebClient.on('update', (update) => {
+        console.log('Call update:', update);
+      });
+    }
+
     endCall() {
       if (!this.inCall) return;
 
       this.inCall = false;
+
+      // Stop the WebRTC call if it's active
+      if (this.retellWebClient) {
+        try {
+          this.retellWebClient.stopCall();
+          console.log('WebRTC call stopped');
+        } catch (error) {
+          console.error('Error stopping WebRTC call:', error);
+        }
+      }
+
       this.hideCallStatus();
 
       // Call the onCallEnd callback if provided
@@ -245,7 +442,19 @@
     }
 
     handleError(error) {
-      alert('Error al iniciar la llamada. Por favor, inténtalo de nuevo.');
+      console.error('Widget Error:', error);
+      
+      let errorMessage = 'Error al iniciar la llamada. Por favor, inténtalo de nuevo.';
+      
+      if (error.message.includes('Agent ID is required')) {
+        errorMessage = 'Error de configuración: Se requiere un Agent ID. Por favor, configura tu agentId en config.js';
+      } else if (error.message.includes('API Key is required')) {
+        errorMessage = 'Error de configuración: Se requiere una API Key. Por favor, configura tu apiKey en config.js';
+      } else if (error.message.includes('Failed to initiate call')) {
+        errorMessage = `Error de API: ${error.message}`;
+      }
+      
+      alert(errorMessage);
       
       if (typeof this.config.onError === 'function') {
         this.config.onError(error);
@@ -253,6 +462,17 @@
     }
 
     destroy() {
+      // Clean up WebRTC connection
+      if (this.retellWebClient) {
+        try {
+          this.retellWebClient.stopCall();
+        } catch (error) {
+          console.error('Error cleaning up WebRTC:', error);
+        }
+        this.retellWebClient = null;
+      }
+
+      // Remove DOM element
       if (this.container) {
         this.container.remove();
       }

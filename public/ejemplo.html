@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Widget de Llamada IA - Ejemplo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #111827;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-bottom: 32px;
+    }
+
+    .feature-list li {
+      padding: 12px 0;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: #10b981;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .code-block {
+      background: #1f2937;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+    }
+
+    .code-block code {
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .note {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .note p {
+      color: #92400e;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Widget de Llamada con Agente IA</h1>
+    <p>
+      Bienvenido a la página de demostración del Widget de Llamada con Agente IA. Este widget te permite 
+      integrar fácilmente funcionalidad de llamadas de audio con IA en cualquier sitio web con solo unas 
+      pocas líneas de código.
+    </p>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Características</h2>
+    <ul class="feature-list">
+      <li>Integración fácil con una sola etiqueta de script</li>
+      <li>Apariencia y posicionamiento personalizables</li>
+      <li>Diseño responsive que funciona en todos los dispositivos</li>
+      <li>Interfaz limpia y moderna</li>
+      <li>Soporte de callbacks para lógica personalizada</li>
+      <li>Listo para WebRTC para llamadas de audio en tiempo real</li>
+    </ul>
+
+    <div class="note">
+      <p>
+        👋 <strong>¡Pruébalo!</strong> Haz clic en el botón flotante en la esquina inferior derecha para ver el widget en acción.
+      </p>
+    </div>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Inicio Rápido</h2>
+    <p>Agrega el siguiente código a tu página HTML:</p>
+
+    <div class="code-block">
+      <code>&lt;!-- Incluye el CSS y JS del widget --&gt;<br>
+&lt;link rel="stylesheet" href="widget.css"&gt;<br>
+&lt;script src="widget.js"&gt;&lt;/script&gt;<br>
+<br>
+&lt;!-- Inicializa el widget --&gt;<br>
+&lt;script&gt;<br>
+&nbsp;&nbsp;new AIWebcallWidget({<br>
+&nbsp;&nbsp;&nbsp;&nbsp;position: 'bottom-right',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;primaryColor: '#007bff',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;agentName: 'Asistente IA',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;greeting: '¡Hola! ¿En qué puedo ayudarte hoy?'<br>
+&nbsp;&nbsp;});<br>
+&lt;/script&gt;</code>
+    </div>
+
+    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Opciones de Configuración</h2>
+    <p>Personaliza el widget para que coincida con tu marca y requisitos:</p>
+    
+    <div class="code-block">
+      <code>{<br>
+&nbsp;&nbsp;position: 'bottom-right',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Posición del widget<br>
+&nbsp;&nbsp;primaryColor: '#007bff',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Color de marca<br>
+&nbsp;&nbsp;buttonText: 'Hablar con Agente IA',&nbsp;&nbsp;// Texto del botón<br>
+&nbsp;&nbsp;agentName: 'Asistente IA',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Nombre del agente<br>
+&nbsp;&nbsp;agentAvatar: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// URL del avatar<br>
+&nbsp;&nbsp;greeting: '¡Hola!',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Mensaje de bienvenida<br>
+&nbsp;&nbsp;callEndpoint: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// API endpoint<br>
+&nbsp;&nbsp;onCallStart: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
+&nbsp;&nbsp;onCallEnd: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
+&nbsp;&nbsp;onError: function(err) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Manejador de errores<br>
+}</code>
+    </div>
+  </div>
+
+  <!-- Include the widget -->
+  <link rel="stylesheet" href="widget.css">
+  <script src="config.js"></script>
+  
+  <!-- Retell AI Web SDK - ESM.SH CDN for Browser Compatibility -->
+  <script type="module">
+    try {
+      console.log('Loading Retell SDK from esm.sh...');
+      
+      // Import RetellWebClient using esm.sh which converts npm modules to browser-compatible ES modules
+      const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@2.0.7');
+      
+      // Make it globally available for our widget
+      window.RetellWebClient = RetellWebClient;
+      console.log('Retell SDK loaded successfully via esm.sh:', typeof RetellWebClient);
+      
+      // Notify the widget that SDK is ready
+      window.dispatchEvent(new CustomEvent('retellSDKLoaded'));
+      
+    } catch (error) {
+      console.error('Failed to load Retell SDK from esm.sh:', error);
+      
+      // Try alternative version as fallback
+      try {
+        console.log('Trying fallback version...');
+        const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@latest');
+        window.RetellWebClient = RetellWebClient;
+        console.log('Retell SDK loaded from fallback version');
+        window.dispatchEvent(new CustomEvent('retellSDKLoaded'));
+      } catch (fallbackError) {
+        console.error('All SDK loading attempts failed:', fallbackError);
+      }
+    }
+  </script>
+  
+  <script src="widget.js"></script>
+
+  <!-- Initialize the widget -->
+  <script>
+    // Merge configuration from config.js with local overrides
+    const widgetConfig = {
+      ...(window.AI_WIDGET_CONFIG || {}),
+      position: 'bottom-right',
+      primaryColor: '#667eea',
+      agentName: 'Asistente IA',
+      greeting: '¡Hola! Estoy aquí para ayudarte. Haz clic en el botón de abajo para iniciar una llamada de audio conmigo.',
+      buttonText: 'Iniciar Llamada de Audio',
+      onCallStart: function() {
+        console.log('¡Llamada iniciada!');
+      },
+      onCallEnd: function() {
+        console.log('Llamada finalizada');
+      },
+      onError: function(error) {
+        console.error('Error del widget:', error);
+        alert('Error: ' + error.message);
+      }
+    };
+
+    console.log('Widget config:', widgetConfig);
+    new AIWebcallWidget(widgetConfig);
+  </script>
+</body>
+</html>
