@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Agent Webcall Widget - Example</title>
+  <title>Agentes de Voz IA - Costa Networks</title>
   <style>
     * {
       margin: 0;
@@ -21,179 +21,333 @@
       padding: 20px;
     }
 
-    .container {
-      max-width: 800px;
+    .main-container {
+      max-width: 900px;
       width: 100%;
       background: white;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      border-radius: 24px;
+      padding: 48px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
     }
 
-    h1 {
-      font-size: 32px;
+    .logo {
+      width: 180px;
+      height: auto;
+      margin: 0 auto 32px;
+      display: block;
+    }
+
+    .main-title {
+      font-size: 42px;
+      font-weight: 800;
       color: #111827;
       margin-bottom: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    p {
-      font-size: 16px;
+    .subtitle {
+      font-size: 20px;
       color: #6b7280;
-      line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
+      font-weight: 500;
     }
 
-    .feature-list {
-      list-style: none;
-      margin-bottom: 32px;
+    .content-card {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 32px;
+      margin: 32px 0;
+      text-align: left;
+      border-left: 4px solid #667eea;
     }
 
-    .feature-list li {
-      padding: 12px 0;
-      color: #374151;
+    .content-card h2 {
+      font-size: 24px;
+      color: #111827;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
-    .feature-list li::before {
-      content: '✓';
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      background: #10b981;
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 24px;
-      font-weight: bold;
-      flex-shrink: 0;
+    .content-card p {
+      font-size: 16px;
+      color: #4b5563;
+      line-height: 1.7;
+      margin-bottom: 16px;
     }
 
-    .code-block {
-      background: #1f2937;
-      color: #e5e7eb;
-      padding: 20px;
-      border-radius: 8px;
-      overflow-x: auto;
-      margin-bottom: 24px;
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
     }
 
-    .code-block code {
-      font-family: 'Courier New', monospace;
+    .feature-item {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-item h3 {
+      font-size: 18px;
+      color: #111827;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .feature-item p {
       font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .note {
-      background: #fef3c7;
-      border-left: 4px solid #f59e0b;
-      padding: 16px;
-      border-radius: 4px;
-      margin-bottom: 24px;
-    }
-
-    .note p {
-      color: #92400e;
+      color: #6b7280;
+      line-height: 1.5;
       margin: 0;
-      font-size: 14px;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 16px;
+      margin: 32px 0;
+    }
+
+    .cta-section h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .cta-section p {
+      font-size: 18px;
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      background: white;
+      color: #667eea;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .demo-note {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .demo-note .icon {
+      font-size: 24px;
+    }
+
+    .demo-note p {
+      margin: 0;
+      color: #047857;
+      font-weight: 500;
     }
 
     @media (max-width: 768px) {
-      .container {
+      .main-container {
         padding: 24px;
+        margin: 10px;
       }
 
-      h1 {
-        font-size: 24px;
+      .main-title {
+        font-size: 32px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .logo {
+        width: 140px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎯 AI Agent Webcall Widget</h1>
-    <p>
-      Welcome to the AI Agent Webcall Widget demonstration page. This widget allows you to easily integrate
-      AI-powered webcall functionality into any website with just a few lines of code.
-    </p>
+  <div class="main-container">
+    <!-- Logo de la empresa -->
+    <img src="logo.png" alt="Costa Networks" class="logo">
+    
+    <!-- Título principal -->
+    <h1 class="main-title">Agentes de Voz Inteligentes</h1>
+    <p class="subtitle">Revoluciona la atención al cliente con IA conversacional avanzada</p>
 
-    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Features</h2>
-    <ul class="feature-list">
-      <li>Easy integration with a single script tag</li>
-      <li>Customizable appearance and positioning</li>
-      <li>Responsive design that works on all devices</li>
-      <li>Clean and modern UI</li>
-      <li>Callback support for custom logic</li>
-      <li>WebRTC ready for real-time video calls</li>
-    </ul>
-
-    <div class="note">
+    <!-- Contenido principal -->
+    <div class="content-card">
+      <h2>🎯 ¿Qué son los Agentes de Voz IA?</h2>
       <p>
-        👋 <strong>Try it out!</strong> Click the floating button in the bottom-right corner to see the widget in action.
+        Los agentes de voz con inteligencia artificial son asistentes virtuales avanzados que pueden mantener 
+        conversaciones naturales y fluidas con tus clientes a través de llamadas de voz en tiempo real. 
+        Utilizando tecnología de procesamiento de lenguaje natural de última generación, estos agentes 
+        comprenden el contexto, responden preguntas complejas y realizan tareas específicas.
+      </p>
+      <p>
+        <strong>Perfectos para:</strong> Atención al cliente 24/7, soporte técnico, ventas, reservas, 
+        encuestas de satisfacción, y cualquier interacción que requiera comunicación verbal natural.
       </p>
     </div>
 
-    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Quick Start</h2>
-    <p>Add the following code to your HTML page:</p>
+    <!-- Grid de características -->
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">🗣️</span>
+        <h3>Conversación Natural</h3>
+        <p>Interacciones fluidas y naturales que se sienten como hablar con un humano real.</p>
+      </div>
 
-    <div class="code-block">
-      <code>&lt;!-- Include the widget CSS and JS --&gt;<br>
-&lt;link rel="stylesheet" href="widget.css"&gt;<br>
-&lt;script src="widget.js"&gt;&lt;/script&gt;<br>
-<br>
-&lt;!-- Initialize the widget --&gt;<br>
-&lt;script&gt;<br>
-&nbsp;&nbsp;new AIWebcallWidget({<br>
-&nbsp;&nbsp;&nbsp;&nbsp;position: 'bottom-right',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;primaryColor: '#007bff',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;agentName: 'AI Assistant',<br>
-&nbsp;&nbsp;&nbsp;&nbsp;greeting: 'Hello! How can I help you today?'<br>
-&nbsp;&nbsp;});<br>
-&lt;/script&gt;</code>
+      <div class="feature-item">
+        <span class="feature-icon">⚡</span>
+        <h3>Respuesta Instantánea</h3>
+        <p>Tiempo de respuesta ultra-rápido sin tiempos de espera ni música de fondo.</p>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">🧠</span>
+        <h3>Inteligencia Contextual</h3>
+        <p>Comprende el contexto de la conversación y mantiene coherencia durante toda la llamada.</p>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">🔧</span>
+        <h3>Personalizable</h3>
+        <p>Configurable para tu negocio específico con conocimiento de tus productos y servicios.</p>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <h3>Analytics Avanzados</h3>
+        <p>Métricas detalladas y transcripciones completas de todas las conversaciones.</p>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">🌐</span>
+        <h3>Integración Fácil</h3>
+        <p>Se integra fácilmente en tu sitio web o aplicación con unas pocas líneas de código.</p>
+      </div>
     </div>
 
-    <h2 style="font-size: 24px; color: #111827; margin-bottom: 16px;">Configuration Options</h2>
-    <p>Customize the widget to match your brand and requirements:</p>
-    
-    <div class="code-block">
-      <code>{<br>
-&nbsp;&nbsp;position: 'bottom-right',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Widget position<br>
-&nbsp;&nbsp;primaryColor: '#007bff',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Brand color<br>
-&nbsp;&nbsp;buttonText: 'Talk to AI Agent',&nbsp;&nbsp;&nbsp;// Button text<br>
-&nbsp;&nbsp;agentName: 'AI Assistant',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent display name<br>
-&nbsp;&nbsp;agentAvatar: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Agent avatar URL<br>
-&nbsp;&nbsp;greeting: 'Hello!',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Welcome message<br>
-&nbsp;&nbsp;callEndpoint: null,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// API endpoint<br>
-&nbsp;&nbsp;onCallStart: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
-&nbsp;&nbsp;onCallEnd: function() {},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback<br>
-&nbsp;&nbsp;onError: function(err) {}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Error handler<br>
-}</code>
+    <!-- Sección de llamada a la acción -->
+    <div class="cta-section">
+      <h2>Experimenta el Futuro de la Atención al Cliente</h2>
+      <p>Prueba nuestro agente de voz IA en acción. Una conversación vale más que mil palabras.</p>
+      <button class="cta-button" onclick="triggerWidget()">
+        🎤 Hablar con el Agente IA
+      </button>
+    </div>
+
+    <!-- Nota de demostración -->
+    <div class="demo-note">
+      <span class="icon">💡</span>
+      <p>También puedes hacer clic en el botón flotante en la esquina inferior derecha para iniciar una conversación.</p>
     </div>
   </div>
 
   <!-- Include the widget -->
   <link rel="stylesheet" href="widget.css">
+  <script src="config.js"></script>
+  
+  <!-- Retell AI Web SDK - ESM.SH CDN for Browser Compatibility -->
+  <script type="module">
+    try {
+      console.log('Loading Retell SDK from esm.sh...');
+      
+      // Import RetellWebClient using esm.sh which converts npm modules to browser-compatible ES modules
+      const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@2.0.7');
+      
+      // Make it globally available for our widget
+      window.RetellWebClient = RetellWebClient;
+      console.log('Retell SDK loaded successfully via esm.sh:', typeof RetellWebClient);
+      
+      // Notify the widget that SDK is ready
+      window.dispatchEvent(new CustomEvent('retellSDKLoaded'));
+      
+    } catch (error) {
+      console.error('Failed to load Retell SDK from esm.sh:', error);
+      
+      // Try alternative version as fallback
+      try {
+        console.log('Trying fallback version...');
+        const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@latest');
+        window.RetellWebClient = RetellWebClient;
+        console.log('Retell SDK loaded from fallback version');
+        window.dispatchEvent(new CustomEvent('retellSDKLoaded'));
+      } catch (fallbackError) {
+        console.error('All SDK loading attempts failed:', fallbackError);
+      }
+    }
+  </script>
+  
   <script src="widget.js"></script>
 
   <!-- Initialize the widget -->
   <script>
-    new AIWebcallWidget({
+    // Merge configuration from config.js with local overrides
+    const widgetConfig = {
+      ...(window.AI_WIDGET_CONFIG || {}),
       position: 'bottom-right',
       primaryColor: '#667eea',
-      agentName: 'AI Assistant',
-      greeting: 'Hello! I\'m here to help. Click the button below to start a video call with me.',
-      buttonText: 'Start Video Call',
+      agentName: 'Agente IA Costa Networks',
+      greeting: '¡Hola! Soy tu agente de voz inteligente. Estoy aquí para mostrarte cómo funciona nuestra tecnología de IA conversacional. ¿En qué puedo ayudarte?',
+      buttonText: 'Hablar con Agente IA',
       onCallStart: function() {
-        console.log('Call started!');
+        console.log('¡Llamada iniciada!');
       },
       onCallEnd: function() {
-        console.log('Call ended!');
+        console.log('Llamada finalizada');
       },
       onError: function(error) {
-        console.error('Widget error:', error);
+        console.error('Error del widget:', error);
+        alert('Error: ' + error.message);
       }
-    });
+    };
+
+    // Function to trigger widget from CTA button
+    window.triggerWidget = function() {
+      const widgetButton = document.querySelector('.ai-webcall-widget-button');
+      if (widgetButton) {
+        widgetButton.click();
+      }
+    };
+
+    console.log('Widget config:', widgetConfig);
+    new AIWebcallWidget(widgetConfig);
   </script>
 </body>
 </html>

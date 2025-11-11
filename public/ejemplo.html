@@ -175,11 +175,46 @@
 
   <!-- Include the widget -->
   <link rel="stylesheet" href="widget.css">
+  <script src="config.js"></script>
+  
+  <!-- Retell AI Web SDK - ESM.SH CDN for Browser Compatibility -->
+  <script type="module">
+    try {
+      console.log('Loading Retell SDK from esm.sh...');
+      
+      // Import RetellWebClient using esm.sh which converts npm modules to browser-compatible ES modules
+      const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@2.0.7');
+      
+      // Make it globally available for our widget
+      window.RetellWebClient = RetellWebClient;
+      console.log('Retell SDK loaded successfully via esm.sh:', typeof RetellWebClient);
+      
+      // Notify the widget that SDK is ready
+      window.dispatchEvent(new CustomEvent('retellSDKLoaded'));
+      
+    } catch (error) {
+      console.error('Failed to load Retell SDK from esm.sh:', error);
+      
+      // Try alternative version as fallback
+      try {
+        console.log('Trying fallback version...');
+        const { RetellWebClient } = await import('https://esm.sh/retell-client-js-sdk@latest');
+        window.RetellWebClient = RetellWebClient;
+        console.log('Retell SDK loaded from fallback version');
+        window.dispatchEvent(new CustomEvent('retellSDKLoaded'));
+      } catch (fallbackError) {
+        console.error('All SDK loading attempts failed:', fallbackError);
+      }
+    }
+  </script>
+  
   <script src="widget.js"></script>
 
   <!-- Initialize the widget -->
   <script>
-    new AIWebcallWidget({
+    // Merge configuration from config.js with local overrides
+    const widgetConfig = {
+      ...(window.AI_WIDGET_CONFIG || {}),
       position: 'bottom-right',
       primaryColor: '#667eea',
       agentName: 'Asistente IA',
@@ -193,8 +228,12 @@
       },
       onError: function(error) {
         console.error('Error del widget:', error);
+        alert('Error: ' + error.message);
       }
-    });
+    };
+
+    console.log('Widget config:', widgetConfig);
+    new AIWebcallWidget(widgetConfig);
   </script>
 </body>
 </html>
