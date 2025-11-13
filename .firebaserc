@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "ai-agent-widget"
-  }
+    "default": "ai-agent-widget",
+    "rojano": "ai-widget-rojano"
+  },
+  "targets": {},
+  "etags": {}
 }
