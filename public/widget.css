@@ -181,6 +181,43 @@
   padding: 24px 16px;
 }
 
+/* Agent selector */
+.ai-webcall-widget-agent-selector {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.ai-webcall-widget-agent-selector label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.ai-webcall-widget-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #111827;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ai-webcall-widget-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.ai-webcall-widget-select:hover {
+  border-color: #9ca3af;
+}
+
 .ai-webcall-widget-greeting {
   font-size: 14px;
   color: #4b5563;
