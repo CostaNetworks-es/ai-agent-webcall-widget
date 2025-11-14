@@ -20,9 +20,14 @@
     agentVersion: null, // Optional: Agent version to use
     metadata: null, // Optional: Custom metadata object
     retellLlmDynamicVariables: null, // Optional: Dynamic variables for LLM
+    // Multiple agents support
+    enableMultipleAgents: false, // Enable multiple agents selector
+    agents: null, // Object containing agent configurations
+    showAgentSelector: true, // Show agent selector in panel when multiple agents enabled
     onCallStart: null,
     onCallEnd: null,
-    onError: null
+    onError: null,
+    onAgentChange: null // Callback when agent is changed
   };
 
   class AIWebcallWidget {
@@ -84,6 +89,26 @@
       // Create widget panel
       const panel = document.createElement('div');
       panel.className = 'ai-webcall-widget-panel';
+      
+      // Build agent selector HTML if multiple agents are enabled
+      let agentSelectorHTML = '';
+      if (this.config.enableMultipleAgents && this.config.agents && this.config.showAgentSelector) {
+        const agentOptions = Object.keys(this.config.agents).map(key => {
+          const agent = this.config.agents[key];
+          const isSelected = agent.agentName === this.config.agentName;
+          return `<option value="${key}" ${isSelected ? 'selected' : ''}>${agent.agentName}</option>`;
+        }).join('');
+        
+        agentSelectorHTML = `
+          <div class="ai-webcall-widget-agent-selector">
+            <label for="agent-select">Seleccionar Agente:</label>
+            <select id="agent-select" class="ai-webcall-widget-select">
+              ${agentOptions}
+            </select>
+          </div>
+        `;
+      }
+
       panel.innerHTML = `
         <div class="ai-webcall-widget-header">
           <div class="ai-webcall-widget-agent-info">
@@ -106,6 +131,7 @@
           </button>
         </div>
         <div class="ai-webcall-widget-body">
+          ${agentSelectorHTML}
           <div class="ai-webcall-widget-greeting">${this.config.greeting}</div>
           <button class="ai-webcall-widget-call-button" style="background-color: ${this.config.primaryColor}">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -135,11 +161,17 @@
       const closeButton = this.container.querySelector('.ai-webcall-widget-close');
       const callButton = this.container.querySelector('.ai-webcall-widget-call-button');
       const endCallButton = this.container.querySelector('.ai-webcall-widget-end-call-button');
+      const agentSelect = this.container.querySelector('#agent-select');
 
       button.addEventListener('click', () => this.togglePanel());
       closeButton.addEventListener('click', () => this.closePanel());
       callButton.addEventListener('click', () => this.startCall());
       endCallButton.addEventListener('click', () => this.endCall());
+
+      // Agent selector change handler
+      if (agentSelect) {
+        agentSelect.addEventListener('change', (e) => this.changeAgent(e.target.value));
+      }
     }
 
     togglePanel() {
@@ -157,6 +189,74 @@
         panel.classList.add('open');
       }, 10);
       this.isOpen = true;
+    }
+
+    changeAgent(agentKey) {
+      if (!this.config.agents || !this.config.agents[agentKey]) {
+        console.error('Agent not found:', agentKey);
+        return;
+      }
+
+      // Don't change agent during an active call
+      if (this.inCall) {
+        alert('No puedes cambiar de agente durante una llamada activa.');
+        return;
+      }
+
+      const newAgentConfig = this.config.agents[agentKey];
+      
+      // Update current configuration
+      this.config = {
+        ...this.config,
+        ...newAgentConfig
+      };
+
+      // Update UI elements
+      this.updateAgentUI();
+
+      // Call the onAgentChange callback if provided
+      if (typeof this.config.onAgentChange === 'function') {
+        this.config.onAgentChange(agentKey, newAgentConfig);
+      }
+
+      console.log('Agent changed to:', agentKey, newAgentConfig);
+    }
+
+    updateAgentUI() {
+      // Update agent name
+      const agentNameElement = this.container.querySelector('.ai-webcall-widget-agent-name');
+      if (agentNameElement) {
+        agentNameElement.textContent = this.config.agentName;
+      }
+
+      // Update avatar
+      const avatarElement = this.container.querySelector('.ai-webcall-widget-avatar-placeholder');
+      if (avatarElement) {
+        avatarElement.textContent = this.config.agentName.charAt(0).toUpperCase();
+        avatarElement.style.backgroundColor = this.config.primaryColor;
+      }
+
+      // Update greeting
+      const greetingElement = this.container.querySelector('.ai-webcall-widget-greeting');
+      if (greetingElement) {
+        greetingElement.textContent = this.config.greeting;
+      }
+
+      // Update call button text and color
+      const callButton = this.container.querySelector('.ai-webcall-widget-call-button');
+      if (callButton) {
+        callButton.style.backgroundColor = this.config.primaryColor;
+        const buttonText = callButton.querySelector('span') || callButton.lastChild;
+        if (buttonText && buttonText.nodeType === Node.TEXT_NODE) {
+          buttonText.textContent = ` ${this.config.buttonText}`;
+        }
+      }
+
+      // Update main widget button color
+      const mainButton = this.container.querySelector('.ai-webcall-widget-button');
+      if (mainButton) {
+        mainButton.style.backgroundColor = this.config.primaryColor;
+      }
     }
 
     closePanel() {

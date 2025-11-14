@@ -176,6 +176,85 @@
       font-weight: 500;
     }
 
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 24px 0;
+    }
+
+    .agent-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .agent-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+
+    .agent-avatar {
+      font-size: 48px;
+      margin-bottom: 16px;
+      height: 80px;
+      width: 80px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .agent-card h3 {
+      font-size: 20px;
+      color: #111827;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .agent-accent {
+      font-size: 14px;
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .agent-description {
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      min-height: 60px;
+    }
+
+    .agent-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .agent-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
     @media (max-width: 768px) {
       .main-container {
         padding: 24px;
@@ -196,6 +275,14 @@
 
       .features-grid {
         grid-template-columns: 1fr;
+      }
+
+      .agents-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .agent-card {
+        padding: 20px;
       }
     }
   </style>
@@ -263,19 +350,79 @@
       </div>
     </div>
 
+    <!-- Sección de demostración de agentes -->
+    <div class="content-card">
+      <h2>🎭 Prueba Nuestros Agentes Especializados</h2>
+      <p>
+        Cada uno de nuestros agentes está entrenado con diferentes acentos y especializaciones para 
+        brindar la mejor experiencia según tu mercado objetivo. Haz clic en cualquier agente para 
+        iniciar una conversación de demostración.
+      </p>
+      
+      <div class="agents-grid">
+        <div class="agent-card" onclick="selectAgent('carlos')">
+          <div class="agent-avatar">🇲🇽</div>
+          <h3>Agente Carlos</h3>
+          <p class="agent-accent">Español Mexicano</p>
+          <p class="agent-description">Especializado en atención al cliente para el mercado mexicano y centroamericano.</p>
+          <button class="agent-button">Hablar con Carlos</button>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('carmen')">
+          <div class="agent-avatar">🇪🇸</div>
+          <h3>Agente Carmen</h3>
+          <p class="agent-accent">Español Castellano</p>
+          <p class="agent-description">Perfecta para clientes de España con acento peninsular auténtico.</p>
+          <button class="agent-button">Hablar con Carmen</button>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('sofia')">
+          <div class="agent-avatar">🇦🇷</div>
+          <h3>Agente Sofía</h3>
+          <p class="agent-accent">Español Argentino</p>
+          <p class="agent-description">Ideal para clientes del cono sur con el encanto porteño.</p>
+          <button class="agent-button">Hablar con Sofía</button>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('alejandro')">
+          <div class="agent-avatar">🇨🇴</div>
+          <h3>Agente Alejandro</h3>
+          <p class="agent-accent">Español Colombiano</p>
+          <p class="agent-description">Excelente para toda la región andina con acento neutro y claro.</p>
+          <button class="agent-button">Hablar con Alejandro</button>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('isabella')">
+          <div class="agent-avatar">🇺🇸</div>
+          <h3>Agent Isabella</h3>
+          <p class="agent-accent">American English</p>
+          <p class="agent-description">Perfect for English-speaking customers with natural American accent.</p>
+          <button class="agent-button">Talk to Isabella</button>
+        </div>
+
+        <div class="agent-card" onclick="selectAgent('generic')">
+          <div class="agent-avatar">🤖</div>
+          <h3>Agente Genérico</h3>
+          <p class="agent-accent">Configuración Personalizada</p>
+          <p class="agent-description">Usa la configuración del widget flotante estándar.</p>
+          <button class="agent-button">Usar Widget Estándar</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Sección de llamada a la acción -->
     <div class="cta-section">
-      <h2>Experimenta el Futuro de la Atención al Cliente</h2>
-      <p>Prueba nuestro agente de voz IA en acción. Una conversación vale más que mil palabras.</p>
+      <h2>Widget Flotante Personalizable</h2>
+      <p>El widget flotante puede configurarse para mostrar múltiples agentes, permitiendo que tus clientes elijan el que mejor se adapte a sus necesidades.</p>
       <button class="cta-button" onclick="triggerWidget()">
-        🎤 Hablar con el Agente IA
+        🎤 Abrir Widget Flotante
       </button>
     </div>
 
     <!-- Nota de demostración -->
     <div class="demo-note">
       <span class="icon">💡</span>
-      <p>También puedes hacer clic en el botón flotante en la esquina inferior derecha para iniciar una conversación.</p>
+      <p>Tanto los botones de agentes individuales como el widget flotante te permiten experimentar con nuestra tecnología de IA conversacional.</p>
     </div>
   </div>
 
@@ -318,14 +465,65 @@
 
   <!-- Initialize the widget -->
   <script>
-    // Merge configuration from config.js with local overrides
-    const widgetConfig = {
+    // Define agent configurations
+    const agentConfigs = {
+      carlos: {
+        agentName: 'Agente Carlos',
+        greeting: '¡Hola! Soy Carlos, tu asistente virtual especializado en atención al cliente para México y Centroamérica. ¿En qué puedo ayudarte hoy, compadre?',
+        agentId: 'agent_carlos_mx', // Replace with actual agent ID
+        primaryColor: '#059669',
+        buttonText: 'Hablar con Carlos',
+        metadata: { accent: 'mexican', region: 'mx' }
+      },
+      carmen: {
+        agentName: 'Agente Carmen',
+        greeting: '¡Hola! Soy Carmen, vuestra asistente virtual de España. Estoy aquí para ayudaros con lo que necesitéis. ¿En qué puedo serviros?',
+        agentId: 'agent_carmen_es', // Replace with actual agent ID
+        primaryColor: '#dc2626',
+        buttonText: 'Hablar con Carmen',
+        metadata: { accent: 'spanish', region: 'es' }
+      },
+      sofia: {
+        agentName: 'Agente Sofía',
+        greeting: '¡Hola, che! Soy Sofía, tu asistente virtual de Argentina. Estoy acá para ayudarte con lo que necesites. ¿Cómo andás?',
+        agentId: 'agent_sofia_ar', // Replace with actual agent ID
+        primaryColor: '#0ea5e9',
+        buttonText: 'Hablar con Sofía',
+        metadata: { accent: 'argentinian', region: 'ar' }
+      },
+      alejandro: {
+        agentName: 'Agente Alejandro',
+        greeting: '¡Hola! Soy Alejandro, tu asistente virtual colombiano. Con mucho gusto te voy a ayudar en lo que necesites. ¿Qué tal el día?',
+        agentId: 'agent_alejandro_co', // Replace with actual agent ID
+        primaryColor: '#eab308',
+        buttonText: 'Hablar con Alejandro',
+        metadata: { accent: 'colombian', region: 'co' }
+      },
+      isabella: {
+        agentName: 'Agent Isabella',
+        greeting: 'Hi there! I\'m Isabella, your English-speaking AI assistant. I\'m here to help you with whatever you need. How can I assist you today?',
+        agentId: 'agent_isabella_us', // Replace with actual agent ID
+        primaryColor: '#7c3aed',
+        buttonText: 'Talk to Isabella',
+        metadata: { accent: 'american', region: 'us', language: 'en' }
+      },
+      generic: {
+        agentName: 'Agente IA Costa Networks',
+        greeting: '¡Hola! Soy tu agente de voz inteligente. Estoy aquí para mostrarte cómo funciona nuestra tecnología de IA conversacional. ¿En qué puedo ayudarte?',
+        agentId: 'agent_generic', // Replace with actual agent ID
+        primaryColor: '#667eea',
+        buttonText: 'Hablar con Agente IA',
+        metadata: { accent: 'neutral', region: 'generic' }
+      }
+    };
+
+    // Base widget configuration
+    const baseWidgetConfig = {
       ...(window.AI_WIDGET_CONFIG || {}),
       position: 'bottom-right',
-      primaryColor: '#667eea',
-      agentName: 'Agente IA Costa Networks',
-      greeting: '¡Hola! Soy tu agente de voz inteligente. Estoy aquí para mostrarte cómo funciona nuestra tecnología de IA conversacional. ¿En qué puedo ayudarte?',
-      buttonText: 'Hablar con Agente IA',
+      // Enable multiple agents support
+      enableMultipleAgents: true,
+      agents: agentConfigs,
       onCallStart: function() {
         console.log('¡Llamada iniciada!');
       },
@@ -338,16 +536,59 @@
       }
     };
 
+    // Merge with default agent (generic)
+    const widgetConfig = {
+      ...baseWidgetConfig,
+      ...agentConfigs.generic
+    };
+
+    let currentWidget = null;
+
+    // Function to select and configure a specific agent
+    window.selectAgent = function(agentKey) {
+      console.log('Selecting agent:', agentKey);
+      
+      const agentConfig = agentConfigs[agentKey];
+      if (!agentConfig) {
+        console.error('Agent not found:', agentKey);
+        return;
+      }
+
+      // Create new widget configuration with selected agent
+      const selectedAgentConfig = {
+        ...baseWidgetConfig,
+        ...agentConfig
+      };
+
+      // Destroy existing widget if it exists
+      if (currentWidget) {
+        currentWidget.destroy();
+      }
+
+      // Create new widget with selected agent configuration
+      currentWidget = new AIWebcallWidget(selectedAgentConfig);
+      
+      // Auto-open the widget panel
+      setTimeout(() => {
+        currentWidget.openPanel();
+      }, 100);
+    };
+
     // Function to trigger widget from CTA button
     window.triggerWidget = function() {
-      const widgetButton = document.querySelector('.ai-webcall-widget-button');
-      if (widgetButton) {
-        widgetButton.click();
+      if (currentWidget) {
+        currentWidget.openPanel();
+      } else {
+        const widgetButton = document.querySelector('.ai-webcall-widget-button');
+        if (widgetButton) {
+          widgetButton.click();
+        }
       }
     };
 
+    // Initialize the default widget
     console.log('Widget config:', widgetConfig);
-    new AIWebcallWidget(widgetConfig);
+    currentWidget = new AIWebcallWidget(widgetConfig);
   </script>
 </body>
 </html>
