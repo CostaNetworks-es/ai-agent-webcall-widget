@@ -46,10 +46,30 @@ window.AI_WIDGET_CONFIG = {
   
   // Define your agents here (only used when enableMultipleAgents is true)
   agents: {
+    
+    // Agente Carmen - Español Castellano
+    carmen: {
+      agentName: 'Agente Carmen',
+      agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
+      agentVersion: 0,
+      primaryColor: '#dc2626',
+      buttonText: 'Hablar con Carmen',
+      greeting: '¡Hola! Soy Carmen, vuestra asistente virtual de España. Estoy aquí para ayudaros con lo que necesitéis. ¿En qué puedo serviros?',
+      metadata: { 
+        accent: 'spanish', 
+        region: 'es',
+        language: 'es',
+        specialization: 'customer_service'
+      },
+      retellLlmDynamicVariables: {
+        agent_personality: 'spanish_formal',
+        greeting_style: 'formal_spanish'
+      }
+    },
     // Agente Carlos - Español Mexicano
     carlos: {
       agentName: 'Agente Carlos',
-      agentId: 'agent_carlos_mx_001', // TODO: Replace with your actual agent ID
+      agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
       agentVersion: 0,
       primaryColor: '#059669',
       buttonText: 'Hablar con Carlos',
@@ -66,30 +86,10 @@ window.AI_WIDGET_CONFIG = {
       }
     },
     
-    // Agente Carmen - Español Castellano
-    carmen: {
-      agentName: 'Agente Carmen',
-      agentId: 'agent_carmen_es_001', // TODO: Replace with your actual agent ID
-      agentVersion: 0,
-      primaryColor: '#dc2626',
-      buttonText: 'Hablar con Carmen',
-      greeting: '¡Hola! Soy Carmen, vuestra asistente virtual de España. Estoy aquí para ayudaros con lo que necesitéis. ¿En qué puedo serviros?',
-      metadata: { 
-        accent: 'spanish', 
-        region: 'es',
-        language: 'es',
-        specialization: 'customer_service'
-      },
-      retellLlmDynamicVariables: {
-        agent_personality: 'spanish_formal',
-        greeting_style: 'formal_spanish'
-      }
-    },
-    
     // Agente Sofía - Español Argentino
     sofia: {
       agentName: 'Agente Sofía',
-      agentId: 'agent_sofia_ar_001', // TODO: Replace with your actual agent ID
+      agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
       agentVersion: 0,
       primaryColor: '#0ea5e9',
       buttonText: 'Hablar con Sofía',
@@ -109,7 +109,7 @@ window.AI_WIDGET_CONFIG = {
     // Agente Alejandro - Español Colombiano
     alejandro: {
       agentName: 'Agente Alejandro',
-      agentId: 'agent_alejandro_co_001', // TODO: Replace with your actual agent ID
+      agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
       agentVersion: 0,
       primaryColor: '#eab308',
       buttonText: 'Hablar con Alejandro',
@@ -129,7 +129,7 @@ window.AI_WIDGET_CONFIG = {
     // Agent Isabella - American English
     isabella: {
       agentName: 'Agent Isabella',
-      agentId: 'agent_isabella_us_001', // TODO: Replace with your actual agent ID
+      agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
       agentVersion: 0,
       primaryColor: '#7c3aed',
       buttonText: 'Talk to Isabella',
@@ -149,7 +149,7 @@ window.AI_WIDGET_CONFIG = {
     // Agente Genérico - Configuración base
     generic: {
       agentName: 'Agente IA Costa Networks',
-      agentId: 'agent_generic_001', // TODO: Replace with your actual agent ID
+      agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
       agentVersion: 0,
       primaryColor: '#667eea',
       buttonText: 'Hablar con Agente IA',
