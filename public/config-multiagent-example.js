@@ -1,53 +1,18 @@
-// Configuration file for AI Webcall Widget
-// Copy this file to config.js and update with your values
-// Add config.js to .gitignore to keep your API key secure
+// Example configuration for multiple agents
+// Copy this to config.js and update with your actual agent IDs
 
 window.AI_WIDGET_CONFIG = {
-  // Your API endpoint for initiating calls
+  // ===== API CONFIGURATION =====
   callEndpoint: 'https://api.retellai.com/v2/create-web-call',
-  
-  // Your API key for authentication
   apiKey: 'public_key_4db1c113d457f03adf35c',
   
-  // ===== SINGLE AGENT CONFIGURATION =====
-  // Use this for single agent setup (traditional mode)
-  
-  // Agent ID from Retell AI Dashboard (REQUIRED for single agent)
-  // Get this from: https://dashboard.retellai.com/dashboard/agent
-  agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
-  
-  // Optional: Agent version (defaults to latest if not specified)
-  agentVersion: 0,
-  
-  // Optional: Custom metadata for tracking
-  metadata: {
-    source: 'website-widget',
-    page: 'home'
-  },
-  
-  // Optional: Dynamic variables for the LLM
-  retellLlmDynamicVariables: {
-    customer_name: 'Visitante'
-  },
-  
-  // Optional: Customize widget appearance
-  agentName: 'Asistente IA',
-  primaryColor: '#007bff',
-  position: 'bottom-right',
-  
-  // ===== MULTIPLE AGENTS CONFIGURATION =====
-  // Enable this section for multiple agents support
-  
-  // Set to true to enable multiple agents mode
-  enableMultipleAgents: false, // Change to true to enable multiple agents
-  
-  // Show agent selector in widget panel (only when enableMultipleAgents is true)
+  // ===== MULTIPLE AGENTS SETUP =====
+  enableMultipleAgents: true,
   showAgentSelector: true,
   
-  // Define your agents here (only used when enableMultipleAgents is true)
+  // Define your specialized agents
   agents: {
-    
-    // Agente Carmen - Español Castellano
+     // Agente Carmen - Español Castellano
     carmen: {
       agentName: 'Agente Carmen',
       agentId: 'agent_e94333dabc8e9fcc92b32a33cb', // TODO: Replace with your actual agent ID
@@ -167,10 +132,32 @@ window.AI_WIDGET_CONFIG = {
     }
   },
   
-  // Callback functions for multi-agent events
+  // ===== CALLBACKS =====
   onAgentChange: function(agentKey, agentConfig) {
-    console.log('Agent changed to:', agentKey, agentConfig);
-    // Add your custom logic here when agent changes
-    // Example: Track analytics, update UI, etc.
+    console.log('Agent changed to:', agentKey, agentConfig.agentName);
   }
 };
+
+// ===== QUICK SETUP GUIDE =====
+/*
+1. Get your agent IDs from Retell AI Dashboard:
+   - Go to: https://dashboard.retellai.com/dashboard/agent
+   - Copy each agent ID and replace the example IDs above
+
+2. Update your API key:
+   - Replace 'your-retell-api-key-here' with your actual API key
+
+3. Enable multiple agents:
+   - Set enableMultipleAgents: true (already done above)
+
+4. Test your setup:
+   - Open your website
+   - Click the widget button
+   - You should see an agent selector dropdown
+   - Each agent should have different colors and greetings
+
+5. Optional customizations:
+   - Add more agents to the 'agents' object
+   - Customize colors, greetings, and metadata
+   - Add onAgentChange callback for analytics
+*/

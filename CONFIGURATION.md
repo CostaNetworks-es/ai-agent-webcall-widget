@@ -194,6 +194,165 @@ To use it:
 2. Enable GitHub Pages in repository settings
 3. Push to the `main` branch to trigger deployment
 
+## Multiple Agents Configuration
+
+The widget supports multiple agents with different specializations, accents, and configurations. This is perfect for:
+- **International businesses** serving different markets
+- **A/B testing** different agent personalities
+- **Specialized services** by region or language
+- **Customer segmentation** by preferences
+
+### Enabling Multiple Agents
+
+1. **In config.js**, set `enableMultipleAgents: true`:
+
+```javascript
+window.AI_WIDGET_CONFIG = {
+  // Enable multiple agents support
+  enableMultipleAgents: true,
+  
+  // Show agent selector in widget (optional)
+  showAgentSelector: true,
+  
+  // Define your agents
+  agents: {
+    carlos: {
+      agentName: 'Agente Carlos',
+      agentId: 'your_carlos_agent_id', // From Retell AI Dashboard
+      primaryColor: '#059669',
+      greeting: '¡Hola! Soy Carlos, tu asistente mexicano...',
+      metadata: { accent: 'mexican', region: 'mx' }
+    },
+    isabella: {
+      agentName: 'Agent Isabella',
+      agentId: 'your_isabella_agent_id', // From Retell AI Dashboard
+      primaryColor: '#7c3aed',
+      greeting: 'Hi! I\'m Isabella, your English assistant...',
+      metadata: { accent: 'american', region: 'us', language: 'en' }
+    }
+    // Add more agents as needed
+  }
+};
+```
+
+2. **Initialize the widget** with multi-agent support:
+
+```javascript
+new AIWebcallWidget({
+  ...window.AI_WIDGET_CONFIG,
+  onAgentChange: function(agentKey, agentConfig) {
+    console.log('Agent changed:', agentKey);
+    // Track agent selection in analytics
+  }
+});
+```
+
+### Agent Configuration Options
+
+Each agent in the `agents` object supports these properties:
+
+```javascript
+{
+  // Required
+  agentName: 'Agent Name',
+  agentId: 'retell_agent_id', // From Retell AI Dashboard
+  
+  // Optional - Appearance
+  primaryColor: '#007bff',
+  agentAvatar: 'https://example.com/avatar.jpg',
+  buttonText: 'Talk to Agent',
+  greeting: 'Custom greeting message...',
+  
+  // Optional - Retell AI Configuration
+  agentVersion: 0,
+  metadata: {
+    accent: 'american',
+    region: 'us',
+    language: 'en',
+    specialization: 'support'
+  },
+  retellLlmDynamicVariables: {
+    agent_personality: 'professional',
+    greeting_style: 'formal'
+  }
+}
+```
+
+### Using Pre-configured Agents
+
+The `config.js` includes 6 pre-configured agents:
+
+- **🇲🇽 Agente Carlos** - Mexican Spanish (friendly, uses "compadre")
+- **🇪🇸 Agente Carmen** - Castilian Spanish (formal, uses "vosotros")
+- **🇦🇷 Agente Sofía** - Argentinian Spanish (casual, uses "che")
+- **🇨🇴 Agente Alejandro** - Colombian Spanish (polite, neutral accent)
+- **🇺🇸 Agent Isabella** - American English (professional)
+- **🤖 Generic Agent** - Customizable baseline
+
+**To use them:**
+1. Update the `agentId` values with your actual Retell AI agent IDs
+2. Set `enableMultipleAgents: true`
+3. Deploy and test!
+
+### Creating Agent Selection UI
+
+The widget automatically includes an agent selector when `enableMultipleAgents: true`. You can also create custom agent selection:
+
+```html
+<!-- Custom agent selection buttons -->
+<div class="agent-selection">
+  <button onclick="selectAgent('carlos')">🇲🇽 Agente Carlos</button>
+  <button onclick="selectAgent('isabella')">🇺🇸 Agent Isabella</button>
+</div>
+
+<script>
+function selectAgent(agentKey) {
+  // This function is available globally when multi-agent is enabled
+  window.selectAgent(agentKey);
+}
+</script>
+```
+
+### Agent Metadata Usage
+
+Use metadata to:
+- **Track analytics** by agent type
+- **Customize behavior** based on region/language
+- **Route conversations** to appropriate specialists
+- **A/B test** different approaches
+
+```javascript
+onAgentChange: function(agentKey, agentConfig) {
+  // Send to analytics
+  gtag('event', 'agent_selected', {
+    agent_id: agentKey,
+    accent: agentConfig.metadata.accent,
+    region: agentConfig.metadata.region
+  });
+  
+  // Update page language if needed
+  if (agentConfig.metadata.language === 'en') {
+    document.documentElement.lang = 'en';
+  }
+}
+```
+
+## Single Agent Configuration (Traditional)
+
+For simple use cases, keep `enableMultipleAgents: false` and use:
+
+```javascript
+window.AI_WIDGET_CONFIG = {
+  enableMultipleAgents: false,
+  
+  // Single agent configuration
+  agentId: 'your-agent-id',
+  agentName: 'Support Agent',
+  primaryColor: '#007bff',
+  // ... other single agent options
+};
+```
+
 ## Example Integration
 
 Complete example with all options:
@@ -212,27 +371,20 @@ Complete example with all options:
 <body>
   <h1>My Website</h1>
   
+  <!-- Configuration -->
+  <script src="config.js"></script>
+  
   <!-- Widget JS -->
   <script src="widget.js"></script>
   
   <!-- Initialize Widget -->
   <script>
     new AIWebcallWidget({
-      // Positioning
+      // Use configuration from config.js
+      ...window.AI_WIDGET_CONFIG,
+      
+      // Override specific options if needed
       position: 'bottom-right',
-      
-      // Styling
-      primaryColor: '#667eea',
-      
-      // Content
-      agentName: 'Support Agent',
-      agentAvatar: 'https://example.com/avatar.jpg',
-      greeting: 'Need help? Start a video call!',
-      buttonText: 'Start Call',
-      
-      // API Configuration
-      callEndpoint: 'https://api.example.com/initiate-call',
-      apiKey: 'your-api-key-here', // Better: Use config.js
       
       // Callbacks
       onCallStart: async function() {
@@ -246,6 +398,10 @@ Complete example with all options:
       onError: function(error) {
         console.error('Error:', error);
         // Your error handling here
+      },
+      onAgentChange: function(agentKey, agentConfig) {
+        console.log('Agent changed to:', agentKey);
+        // Track in analytics, update UI, etc.
       }
     });
   </script>
